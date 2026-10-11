@@ -1,0 +1,32 @@
+# Segredos (CLAUDE.md §5) — só .env.example pode ser versionado
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+service-account*.json
+
+# Dependências e builds
+node_modules/
+.next/
+out/
+dist/
+build/
+coverage/
+.vercel/
+.turbo/
+
+# Testes
+test-results/
+playwright-report/
+
+# Sistema/editor
+.DS_Store
+Thumbs.db
+*.log
+.vscode/*
+!.vscode/extensions.json
+.idea/
