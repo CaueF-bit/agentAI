@@ -19,6 +19,15 @@ coverage/
 .vercel/
 .turbo/
 
+next-env.d.ts
+*.tsbuildinfo
+
+# Banco local de demonstração (PGlite)
+.data/
+
+# Saída gerada do modelo financeiro (reproduzível com npm run finance)
+finance/output/
+
 # Testes
 test-results/
 playwright-report/

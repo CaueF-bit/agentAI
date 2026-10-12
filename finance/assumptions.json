@@ -1,0 +1,95 @@
+{
+  "_readme": "Premissas editáveis do modelo financeiro. Valores marcados como hipótese não têm validação. IDs [Sxx] referem-se a docs/research/sources.md. Rode: npm run finance",
+  "fx": { "brlPerUsd": 4.9892, "source": "S01 PTAX venda 2026-10-09" },
+
+  "market": {
+    "totalAccountingOrgs": { "value": 97836, "source": "S11 CFC abr/2025", "type": "observado" },
+    "shareMultiPerson": { "value": 0.33, "source": "S13 (sociedades ~33%), confiança baixa", "type": "estimativa" },
+    "scenarios": {
+      "conservative": { "shareDigitalReady": 0.5, "annualSpendMultiBrl": 6000, "annualSpendSoloBrl": 1800 },
+      "base":         { "shareDigitalReady": 0.6, "annualSpendMultiBrl": 9600, "annualSpendSoloBrl": 2400 },
+      "optimistic":   { "shareDigitalReady": 0.7, "annualSpendMultiBrl": 14400, "annualSpendSoloBrl": 3600 }
+    },
+    "_notes": "shareDigitalReady e gastos anuais são hipóteses nossas. Gasto = assinatura plausível do agente de fechamento, não gasto total com software."
+  },
+
+  "acquisition": {
+    "months": 36,
+    "scenarios": {
+      "conservative": { "demosPerMonth": 8,  "closeRate": 0.15, "monthlyChurn": 0.03,  "arpaMonthlyBrl": 690,  "rampMonths": 6 },
+      "base":         { "demosPerMonth": 15, "closeRate": 0.20, "monthlyChurn": 0.02,  "arpaMonthlyBrl": 990,  "rampMonths": 4 },
+      "optimistic":   { "demosPerMonth": 25, "closeRate": 0.25, "monthlyChurn": 0.015, "arpaMonthlyBrl": 1290, "rampMonths": 3 }
+    },
+    "_notes": "Capacidade comercial limitada (fundadores). rampMonths: meses até atingir o ritmo de demos. Churn sem histórico: hipótese."
+  },
+
+  "usage": {
+    "clientCompaniesPerFirm": 80,
+    "docsPerClientMonth": 12,
+    "remindersPerClientMonth": 2.5,
+    "classifyTokens": { "input": 1500, "output": 150 },
+    "draftTokens": { "input": 1200, "output": 300 },
+    "builderAndSandboxTokensMonth": { "input": 50000, "output": 10000 },
+    "_notes": "Volumes hipotéticos para um escritório de ~80 empresas-cliente. Medir no piloto."
+  },
+
+  "modelPricesUsdPerMTok": {
+    "_source": "S22 Anthropic pricing, consulta 2026-10-11",
+    "claude-opus-5-5":   { "input": 4.0, "output": 20.0 },
+    "claude-sonnet-5-5": { "input": 2.0, "output": 10.0 },
+    "claude-haiku-4-5":  { "input": 1.0, "output": 5.0 }
+  },
+
+  "costScenarios": {
+    "conservative": {
+      "classifyModel": "claude-opus-5-5", "draftModel": "claude-opus-5-5",
+      "retryOverhead": 0.30, "whatsappShare": 0.7, "supportHoursPerFirmMonth": 3,
+      "variableInfraBrlPerFirm": 25
+    },
+    "base": {
+      "classifyModel": "claude-opus-5-5", "draftModel": "claude-opus-5-5",
+      "retryOverhead": 0.15, "whatsappShare": 0.5, "supportHoursPerFirmMonth": 2,
+      "variableInfraBrlPerFirm": 15
+    },
+    "optimistic": {
+      "classifyModel": "claude-haiku-4-5", "draftModel": "claude-sonnet-5-5",
+      "retryOverhead": 0.10, "whatsappShare": 0.3, "supportHoursPerFirmMonth": 1,
+      "variableInfraBrlPerFirm": 10
+    },
+    "_notes": "Base usa o modelo padrão do projeto (Opus 5.5). O cenário otimista usa modelos menores: otimização FUTURA que exige avaliação de qualidade antes, não garantia de margem."
+  },
+
+  "unitCosts": {
+    "whatsappTemplateUsd": { "value": 0.01, "type": "hipótese PLACEHOLDER", "source": "S24: estrutura conhecida, tarifa do Brasil não obtida. Substituir pelo rate card da Meta." },
+    "emailUsd": { "value": 0.0005, "type": "hipótese" },
+    "supportCostBrlPerHour": { "value": 90, "type": "hipótese (custo hora de analista de suporte com encargos)" },
+    "cardFeePct": { "value": 0.0399, "source": "S23" },
+    "cardFeeFixedBrl": { "value": 0.39, "source": "S23" },
+    "revenueTaxPct": { "value": 0.10, "type": "hipótese — validar regime tributário com contador" }
+  },
+
+  "revenueSplit": {
+    "partnerAgentRevenueShare": 0.30,
+    "creatorPayoutPct": 0.70,
+    "_notes": "Fração da receita vinda de agentes de criadores parceiros (30% no base) repassa 70% ao criador. Repasse não é receita retida."
+  },
+
+  "fixedCostsMonthlyBrl": {
+    "hostingAndDb": { "value": 600, "source": "S25 Vercel Pro US$20/assento x2 + S26 Supabase Pro US$25 + compute/backups, arredondado" },
+    "monitoringAndTools": { "value": 500, "type": "hipótese" },
+    "teamMinimum": { "value": 15000, "type": "hipótese — pró-labore mínimo de 2 fundadores" },
+    "legalAccountingCompliance": { "value": 1500, "type": "hipótese — contador, assessoria jurídica/LGPD rateada" }
+  },
+
+  "cacBrl": {
+    "conservative": 4000, "base": 2500, "optimistic": 1500,
+    "_notes": "Hipótese sem dados: tempo de fundador + eventos/parcerias por cliente fechado."
+  },
+
+  "implementationFeeBrl": { "value": 2500, "type": "hipótese — implantação paga, uma vez" },
+
+  "sensitivity": {
+    "usageMultipliers": [0.5, 1, 2, 4],
+    "supportHours": [0.5, 1, 2, 4, 6]
+  }
+}

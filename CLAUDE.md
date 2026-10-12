@@ -1,10 +1,10 @@
 # CLAUDE.md — Regras do projeto AgentAI
 
-Plataforma de criação, venda, contratação e operação de agentes de IA, com IA assistente, focada em nichos específicos (nicho ainda não definido).
+Plataforma de criação, venda, contratação e operação de agentes de IA, com IA assistente, focada em nichos específicos. Nicho provisório (hipótese, não validada): escritórios de contabilidade — ver `docs/decisions.md` (D-002).
 
 Este arquivo é a fonte principal das regras de qualidade, segurança, testes e publicação. `AGENTS.md` aponta para ele. Os documentos em `docs/` são registros vivos (matriz de testes, decisões, riscos, checklist de publicação) e não repetem estas regras.
 
-> **Estado atual:** nenhuma funcionalidade implementada. Estas regras estão documentadas, mas documentar uma regra **não** equivale a implementá-la. O estado real de cada controle fica em `docs/test-matrix.md` e `docs/risks-and-pending.md`.
+> **Estado atual:** MVP de demonstração implementado (dados fictícios, integrações simuladas, não apto para produção). Estas regras estão documentadas, mas documentar uma regra **não** equivale a implementá-la. O estado real de cada controle fica em `docs/test-matrix.md` e `docs/assumptions-and-risks.md`.
 
 Princípio central: **evidência de funcionamento, não código que aparentemente funciona.**
 
@@ -14,7 +14,7 @@ Princípio central: **evidência de funcionamento, não código que aparentement
 
 - Ao alterar regras, incorporar neste arquivo sem apagar orientações válidas. Manter `AGENTS.md` compatível.
 - Criar documentos complementares só quando necessário, sem duplicar conteúdo.
-- Registrar decisões em `docs/decisions.md` e riscos/pendências em `docs/risks-and-pending.md`.
+- Registrar decisões em `docs/decisions.md` e riscos/pendências em `docs/assumptions-and-risks.md`.
 - Nunca afirmar que uma regra está implementada só porque está documentada.
 
 ## 2. Mínimo de 50 cenários automatizados
