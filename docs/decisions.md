@@ -58,6 +58,12 @@ Formato: data, decisão, motivo, alternativas. Inclui toda correção de expecta
 
 - **Motivo:** reduzir o atrito do lado da oferta enquanto não há demanda do marketplace ([pricing.md](business/pricing.md)).
 
+## D-012 · 2026-10-12 · Nenhuma credencial fixa no código, nem fictícia
+
+- **Contexto:** o gitleaks da CI (execução 38323984172, commit `6f21994`) apontou possíveis vazamentos. Os candidatos eram valores **fictícios** escritos à mão como credenciais de demonstração (`src/db/seed.ts`) e de teste (`tests/`). Nunca houve credencial real no projeto, então não há nada a revogar.
+- **Decisão:** gerar esses valores aleatoriamente em tempo de execução (`randomToken()`) em vez de silenciar o verificador.
+- **Pendência:** o commit `6f21994` continua no histórico com esses valores fictícios. Uma varredura completa do histórico pode voltar a apontá-los; nesse caso, registrar as ocorrências em `.gitleaksignore` com justificativa, sem reescrever o histórico.
+
 ## Correções de expectativa de teste
 
 | Data | Teste | Mudança | Por quê |

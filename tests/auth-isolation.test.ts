@@ -8,6 +8,7 @@ import { addDocument, listClients } from "@/core/clients/clients";
 import { getDefinition, listDefinitions } from "@/core/agents/definitions";
 import { revokeMember } from "@/core/orgs/members";
 import { resetConfigForTests } from "@/core/config";
+import { randomToken } from "@/core/ids";
 import { deps, expectAppError, freshDb, installationOf, key, loginAs, O, U } from "./helpers";
 
 // Categoria: autenticação, autorização e isolamento entre clientes.
@@ -38,7 +39,7 @@ describe("autenticação", () => {
   it("AUTH-03 login de demonstração é bloqueado fora do DEMO_MODE", async () => {
     process.env.DEMO_MODE = "false";
     process.env.CREDENTIALS_ENCRYPTION_KEY = Buffer.alloc(32, 7).toString("base64");
-    process.env.TESTPAY_WEBHOOK_SECRET = "segredo-de-teste-local";
+    process.env.TESTPAY_WEBHOOK_SECRET = randomToken();
     resetConfigForTests();
     try {
       await expectAppError(createDemoSession(db, U.ana.id), "demo_disabled");
@@ -63,7 +64,7 @@ describe("isolamento entre organizações", () => {
     const { actor: carla } = await loginAs(db, U.carla.id);
     await expectAppError(setPaused(db, carla, insA, true), "not_found");
     await expectAppError(updateLimits(db, carla, insA, { monthlyBudgetCents: 1000, maxConcurrentRuns: 1, approvalPolicy: "never" }), "not_found");
-    await expectAppError(setConnection(db, carla, insA, { kind: "email", label: "intrusa", secret: "segredo-intruso-123" }), "not_found");
+    await expectAppError(setConnection(db, carla, insA, { kind: "email", label: "intrusa", secret: randomToken() }), "not_found");
     const { actor: ana } = await loginAs(db, U.ana.id);
     const after = await getInstallation(db, ana, insA);
     expect(after.installation.status).toBe("active");

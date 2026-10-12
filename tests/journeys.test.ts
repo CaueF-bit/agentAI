@@ -13,7 +13,7 @@ import { revokeMember } from "@/core/orgs/members";
 import { SimulatedChannel } from "@/core/runtime/channels";
 import { createRun, executeRun, getRunDetail, listMessages, usageForInstallation } from "@/core/runtime/runs";
 import { runSandbox } from "@/core/runtime/sandbox";
-import { currentCompetence } from "@/core/ids";
+import { currentCompetence, randomToken } from "@/core/ids";
 import { deps, expectAppError, freshDb, installationOf, key, loginAs, O, U } from "./helpers";
 
 // Categoria: jornadas completas (J1–J5 de docs/product/user-journeys.md), do login ao resultado.
@@ -54,7 +54,7 @@ describe("jornadas completas", () => {
     const runBefore = await createRun(db, carla, ins, { idempotencyKey: key("j2") });
     expect((await executeRun(db, carla, runBefore, deps())).error_code).toBe("subscription_inactive");
     expect(await simulateTestPayment(db, carla, ins)).toBe("applied");
-    await setConnection(db, carla, ins, { kind: "email", label: "SMTP simulado", secret: "token-sintetico-123456" });
+    await setConnection(db, carla, ins, { kind: "email", label: "SMTP simulado", secret: randomToken() });
     await updateLimits(db, carla, ins, { monthlyBudgetCents: 20000, maxConcurrentRuns: 2, approvalPolicy: "first_contact" });
     const view = await getInstallation(db, carla, ins);
     expect(view.subscription).toMatchObject({ status: "active", price_cents: 149000, mode: "test" });

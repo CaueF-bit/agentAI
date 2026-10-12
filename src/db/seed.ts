@@ -4,7 +4,7 @@ import { defaultSpec, type AgentSpec } from "../core/agents/spec";
 import { simulateTestPayment } from "../core/billing/billing";
 import { addClient, addDocument } from "../core/clients/clients";
 import { contractListing, setConnection } from "../core/installations/installations";
-import { currentCompetence } from "../core/ids";
+import { currentCompetence, randomToken } from "../core/ids";
 import type { Db } from "./client";
 
 // Dados de DEMONSTRAÇÃO. Todas as organizações, pessoas, empresas e documentos são fictícios.
@@ -84,12 +84,12 @@ export async function seedDemo(db: Db): Promise<void> {
   // Horizonte contrata o agente 1 e "paga" em modo de teste.
   const insH = await contractListing(db, ana, listing1, "essencial");
   await simulateTestPayment(db, ana, insH);
-  await setConnection(db, ana, insH, { kind: "email", label: "E-mail do escritório (simulado)", secret: "demo-token-ficticio-0001" });
+  await setConnection(db, ana, insH, { kind: "email", label: "E-mail do escritório (simulado)", secret: randomToken() });
 
   // Sul também contrata o agente 1 (mesmo agente, instalação e dados separados).
   const insS = await contractListing(db, carla, listing1, "essencial");
   await simulateTestPayment(db, carla, insS);
-  await setConnection(db, carla, insS, { kind: "email", label: "E-mail Sul (simulado)", secret: "demo-token-ficticio-0002" });
+  await setConnection(db, carla, insS, { kind: "email", label: "E-mail Sul (simulado)", secret: randomToken() });
 
   const comp = currentCompetence();
   const hClients = [
