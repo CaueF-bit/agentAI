@@ -1,7 +1,7 @@
 import type { ModelUsage } from "../ai/provider";
 
 // Preços oficiais por milhão de tokens (US$), Anthropic, consultados em 2026-10-11 [S22].
-const PRICES_USD_PER_MTOK: Record<string, { input: number; output: number }> = {
+export const PRICES_USD_PER_MTOK: Record<string, { input: number; output: number }> = {
   "claude-opus-5-5": { input: 4, output: 20 },
   "claude-sonnet-5-5": { input: 2, output: 10 },
   "claude-haiku-4-5": { input: 1, output: 5 },

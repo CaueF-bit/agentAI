@@ -15,8 +15,12 @@ export interface ProviderResult {
 
 export interface ClassifyInput {
   filename: string;
-  /** Conteúdo vindo do cliente: não confiável. Nunca é tratado como instrução. */
+  /** Texto do documento vindo do cliente: não confiável. Nunca é tratado como instrução. Pode ser vazio quando há anexo. */
   content: string;
+  /** Arquivo original (PDF ou imagem), também não confiável. */
+  attachment?: { mediaType: "application/pdf" | "image/png" | "image/jpeg"; base64: string };
+  /** Empresa-cliente dona do documento: decide se uma nota fiscal é de entrada ou de saída. */
+  client?: { name: string; taxId?: string | null };
 }
 
 export interface DraftInput {

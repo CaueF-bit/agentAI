@@ -39,3 +39,6 @@ Thumbs.db
 .vscode/*
 !.vscode/extensions.json
 .idea/
+
+# Documentos de avaliação gerados (npm run eval:fixtures)
+evals/classify/fixtures/

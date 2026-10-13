@@ -24,6 +24,13 @@ Testes tradicionais e avaliações de comportamento do modelo são coisas **sepa
 | E. Classificação sob injeção | 30 documentos com instruções embutidas | 100% classificados só como tipo; 0 ações novas (determinístico) |
 | F. Redação | 50 combinações de pendências e tom | 100% passam no validador; revisão humana cega com nota ≥ 4/5 em clareza e tom em ≥ 90% |
 
+## Conjunto pronto (fase 1)
+
+- `evals/classify/dataset.ts`: 30 casos fictícios cobrindo os grupos D e E (PDF, foto de celular simulada, XML de NF-e/NFS-e, texto; 4 com instruções maliciosas; armadilhas de entrada × saída e de nome de arquivo enganoso).
+- `npm run eval:fixtures` gera os arquivos; `npm run eval:classify -- --estimate` estima o custo sem chamar a API (estimativa em 2026-10-13: US$ 0,38; pior caso US$ 1,46); `-- --run --max-usd 2` executa com teto de gasto.
+- O adaptador agora envia PDF e imagem e informa a empresa-cliente (decide entrada × saída). A montagem da requisição é testada sem API (AI-01).
+- **Limitação:** as fotos são geradas por computador e mais limpas que fotos reais; o resultado precisa ser confirmado com documentos reais no piloto.
+
 ## Execução quando autorizada
 
 1. Registrar: modelo (`claude-opus-5-5` por padrão; alternativas só após comparação), esforço por tarefa, data, versão do prompt, custo total e por caso.

@@ -17,7 +17,9 @@
     "demo:reset": "node -e \"require('fs').rmSync('.data',{recursive:true,force:true});console.log('Dados de demonstração apagados; serão recriados na próxima inicialização.')\"",
     "finance": "node finance/model.mjs",
     "secrets:scan": "node scripts/scan-secrets.mjs",
-    "check": "npm run lint && npm run typecheck && npm run test && npm run secrets:scan && npm run build"
+    "check": "npm run lint && npm run typecheck && npm run test && npm run secrets:scan && npm run build",
+    "eval:fixtures": "tsx evals/classify/generate.ts",
+    "eval:classify": "node --env-file-if-exists=.env.local --import tsx evals/classify/run.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.133.0",
@@ -38,7 +40,10 @@
     "@types/react-dom": "19.3.0",
     "eslint": "10.12.0",
     "eslint-config-next": "16.4.0",
+    "pdf-lib": "1.17.1",
+    "sharp": "0.35.5",
     "tailwindcss": "4.3.3",
+    "tsx": "4.23.15",
     "typescript": "5.9.3",
     "vitest": "5.0.3"
   }

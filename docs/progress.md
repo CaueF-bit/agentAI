@@ -38,9 +38,9 @@ Registro para continuar o trabalho entre sessões. Atualizar ao fim de cada etap
 
 ## Bloqueios (exigem decisão ou autorização do responsável)
 
-- Commit e push deste trabalho para o GitHub: **aguardando autorização**.
-- Proteção de branch no GitHub e projeto na Vercel: exigem acesso de administrador.
-- Avaliação real da IA: exige credencial e orçamento autorizados.
+- Proteção da branch `main` no GitHub: exige ação do responsável (admin do repositório).
+- Repositório está **público**: decidir se continua assim.
+- Avaliação real da IA: exige a chave no `.env.local` (colocada pelo responsável) e autorização do gasto.
 - Análise jurídica e de LGPD antes de qualquer cliente real.
 
 ## Método e lições (2026-10-13)

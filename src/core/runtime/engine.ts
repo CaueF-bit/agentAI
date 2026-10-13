@@ -192,7 +192,7 @@ export async function runMonthlyCollection(input: EngineInput): Promise<RunOutco
         try {
           await callTool("documents.classify", async () => {
             // Conteúdo do documento é NÃO CONFIÁVEL: vai só para classificação, cuja saída é um enum.
-            const r = await provider.classifyDocument({ filename: doc.filename, content: doc.content });
+            const r = await provider.classifyDocument({ filename: doc.filename, content: doc.content, client: { name: client.name } });
             const actualCents = costCentsFromUsage(r.usage, input.pricingModel);
             const parsed = ClassificationSchema.safeParse(r.output);
             if (!parsed.success) throw Object.assign(new Error("saída do modelo inválida"), { actualCents });

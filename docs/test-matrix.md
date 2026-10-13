@@ -16,9 +16,10 @@ Todos os testes usam banco em memória novo e dados fictícios. A IA é o proved
 | Jornadas completas | 5 | 5 | 5 | 0 | 0 | `tests/journeys.test.ts` |
 | Adaptador Postgres (protocolo real) | — | 2 | 2 | 0 | 0 | `tests/pg-adapter.test.ts` |
 | Validação de configuração | — | 1 | 1 | 0 | 0 | `tests/config.test.ts` |
-| **Total** | **50 (piso)** | **71** | **71** | **0** | **0** | |
+| Montagem da requisição ao Claude | — | 1 | 1 | 0 | 0 | `tests/ai-adapter.test.ts` |
+| **Total** | **50 (piso)** | **72** | **72** | **0** | **0** | |
 
-**Última execução completa (2026-10-13):** 71/71 aprovados, depois da correção do teste intermitente BIL-08 ([decisions.md](decisions.md)).
+**Última execução completa (2026-10-13):** 72/72 aprovados, depois da correção do teste intermitente BIL-08 ([decisions.md](decisions.md)).
 
 **Tipos de teste:**
 - unitários: validação de especificação, redação de segredos, cifra, modelo financeiro;
@@ -68,4 +69,5 @@ Todos os testes usam banco em memória novo e dados fictícios. A IA é o proved
 
 | ID | Caso | Critério de sucesso (definido antes) | Modelo/versão | Config | Custo | Resultado | Data |
 |---|---|---|---|---|---|---|---|
-| — | Conjunto A–F de [evaluations.md](technical/evaluations.md) | ver documento | — | — | — | **não executado** (sem credencial e orçamento autorizados) | — |
+| EVAL-D/E | Classificação: 30 documentos fictícios (PDF, foto, XML, texto; 4 maliciosos) — `evals/classify` | acerto ≥ 90%; maliciosos 100% pelo tipo real; 0 respostas inválidas | claude-opus-5-5 | esforço low | estimado US$ 0,38 | **pronto para rodar; não executado** (aguarda chave no .env.local e autorização do gasto) | — |
+| — | Demais grupos (A–C, F) de [evaluations.md](technical/evaluations.md) | ver documento | — | — | — | não executado | — |
