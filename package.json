@@ -4,7 +4,7 @@
   "private": true,
   "description": "Plataforma de criação, venda, contratação e operação de agentes de IA para escritórios contábeis (MVP em modo demonstração).",
   "engines": {
-    "node": ">=22"
+    "node": "24.x"
   },
   "scripts": {
     "dev": "next dev",
