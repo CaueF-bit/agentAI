@@ -1,16 +1,19 @@
 # Roadmap
 
-Ordem condicionada às decisões do [pilot-plan.md](validation/pilot-plan.md). As datas são metas, não compromissos.
+Construído por fases, cada uma com um **"pronto quando"** (CLAUDE.md §13). A parte mais arriscada vem primeiro. Ao fim de cada fase: parar, mostrar, ensinar a testar e esperar o responsável. Datas são metas, não compromissos.
 
-| Fase | Quando (meta) | Entregas | Porta de saída |
-|---|---|---|---|
-| **0. MVP de demonstração** | concluído em 2026-10 | Esta fatia funcional, documentação, 68 testes | Revisão do responsável |
-| **1. Descoberta** | nov/2026 | Entrevistas; ajuste do fluxo e dos preços | Critérios da fase 1 do plano |
-| **2. Fundação para piloto** | nov–dez/2026 | Autenticação consolidada; Postgres gerenciado + adaptador `pg` e teste de concorrência real; migrações versionadas; fila durável + reaper; e-mail real limitado; monitoramento; CI rodando; proteções no GitHub e na Vercel; avaliação real da IA; análise jurídica e de LGPD | Bloqueios de [launch-requirements.md](operations/launch-requirements.md) resolvidos para o escopo do piloto |
-| **3. Piloto pago** | jan–mar/2027 | 3–5 escritórios; leitura de PDF/XML de NF-e; agendamento mensal; importação de clientes | Metas do piloto |
-| **4. Catálogo curado com criadores** | abr–jun/2027 | 1–3 criadores parceiros; repasse via provedor de split (após análise tributária); WhatsApp oficial | Receita recorrente e suporte ≤ 2 h por escritório |
-| **5. Infraestrutura para criadores ("Shopify")** | 2º sem/2027 | Plano do criador, marca própria, clientes do criador | Criadores validados |
-| **6. Marketplace aberto e novos fluxos e nichos** | 2028+ | Avaliações públicas, revisão de qualidade por IA + humano, novos nichos | Dados de demanda recorrente |
+| Fase | Pronto quando | Situação |
+|---|---|---|
+| **0. Fundação de demonstração** | O fluxo completo (criar → contratar → executar → aprovar) roda localmente com dados fictícios, e os testes passam | ✅ concluída (2026-10-11): 71 testes |
+| **0b. Prévia na nuvem** | A prévia protegida da Vercel abre, o `/api/health` mostra `ok: true` e o roteiro Bruno → Ana funciona lá | 🟡 em andamento: falta a variável `DEMO_MODE` no ambiente Preview |
+| **1. Prova da peça arriscada (IA real)** | O Claude real classifica ~30 documentos fictícios **realistas**, incluindo PDF, foto de celular e XML de nota, com acerto ≥ 90%, sem nenhuma ação causada por documento malicioso, e o custo por documento fica medido. **Se não passar, parar e repensar o fluxo antes de qualquer tela nova** | ⏳ espera a chave da Anthropic (gasto estimado: centavos) |
+| **1b. Prova da peça arriscada (negócio)** | 15 entrevistas feitas com o roteiro de [customer-interviews.md](validation/customer-interviews.md); ≥ 40% citam a cobrança de documentos entre as 3 maiores dores | ⏳ pode correr em paralelo à fase 1 |
+| **2. Documentos de verdade entram no app** | O escritório envia PDF, imagem ou XML e o agente classifica sem ninguém digitar texto (hoje o app só aceita texto) | ⏳ |
+| **3. Fundação para piloto** | Login real, banco de produção com backup, e-mail real limitado, monitoramento, proteção da branch `main` e análise jurídica e de LGPD feita | ⏳ |
+| **4. Piloto pago** | 3 a 5 escritórios usando por 3 meses, com as metas de [pilot-plan.md](validation/pilot-plan.md) medidas | ⏳ |
+| **5. Catálogo com criadores parceiros** | 1 a 3 criadores publicam agentes e recebem repasse por provedor de pagamento real (após análise tributária) | ⏳ |
+| **6. Infraestrutura para criadores ("Shopify")** | Um criador opera agentes para os próprios clientes com a marca dele | ⏳ |
+| **7. Marketplace aberto e novos nichos** | Demanda recorrente medida justifica abrir o catálogo e entrar em outro nicho | ⏳ |
 
 ## Fora do horizonte atual
 

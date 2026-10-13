@@ -42,7 +42,14 @@ Registro para continuar o trabalho entre sessões. Atualizar ao fim de cada etap
 - Avaliação real da IA: exige credencial e orçamento autorizados.
 - Análise jurídica e de LGPD antes de qualquer cliente real.
 
+## Método e lições (2026-10-13)
+
+- Adotado o método "parte arriscada primeiro" e fases com "pronto quando" (CLAUDE.md §13; [roadmap](roadmap.md)).
+- Lições de erros reais registradas em CLAUDE.md §14.
+- Escritos: o que o app nunca pode fazer ([vision.md](vision.md)), por que um escritório cancelaria ([icp-and-positioning.md](business/icp-and-positioning.md)) e [sobre-mim.md](sobre-mim.md) (rascunho, aguardando revisão do responsável).
+
 ## Próximo passo exato
 
-1. Rodar as entrevistas de descoberta ([docs/validation/customer-interviews.md](validation/customer-interviews.md)).
-2. Em paralelo, a fase 2 do [roadmap](roadmap.md), começando pela escolha do provedor de autenticação e do banco gerenciado, seguida do adaptador `pg` e do teste de concorrência em Postgres real.
+1. **Fase 0b:** o responsável cria a variável `DEMO_MODE=true` no ambiente Preview da Vercel; disparar novo deploy; conferir `/api/health` com `ok: true` e o roteiro Bruno → Ana na prévia.
+2. **Fase 1 (IA real):** quando o responsável colocar a chave da Anthropic, montar ~30 documentos fictícios realistas (PDF, foto, XML, texto e alguns maliciosos), rodar a classificação com o Claude real e registrar acerto e custo em `docs/test-matrix.md` (avaliações).
+3. **Fase 1b:** entrevistas de descoberta ([customer-interviews.md](validation/customer-interviews.md)), em paralelo.

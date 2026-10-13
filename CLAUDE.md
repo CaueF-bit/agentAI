@@ -201,3 +201,25 @@ Antes de pedir aprovação final para produção, terminar o trabalho autorizado
 - Executar testes locais e correções necessárias de forma autônoma, sem pedir confirmação para cada teste.
 - **Não estão autorizados** sem pedido explícito do responsável: publicação em produção, gastos, ações reais contra serviços externos.
 - Quando tudo estiver verificável, apresentar o resultado concreto e solicitar autorização para publicar.
+
+## 13. Método de trabalho
+
+- **Ler antes de construir:** `docs/progress.md`, `docs/sobre-mim.md` (como responder ao responsável), `docs/vision.md` (inclui o que o app **nunca** pode fazer) e `docs/business/icp-and-positioning.md` (inclui por que um escritório **cancelaria**). Ideia que viola esses limites é recusada ou levada ao responsável, não implementada.
+- **A parte mais arriscada vem primeiro.** Antes de construir telas ou funções sobre uma hipótese, provar a hipótese com o teste mais barato possível (minutos e centavos, sem tela). Se a prova falhar, parar e avisar.
+- **Fases com "pronto quando"** (ver `docs/roadmap.md`). Ao terminar uma fase: parar, mostrar o que ficou pronto, explicar como testar (o que abrir, o que deve acontecer, o que seria bug) e esperar o responsável antes da próxima.
+- **"Pronto" só com prova pelo caminho do usuário:** local (`npm run check`) **e**, quando a mudança vai para a nuvem, a prévia da Vercel respondendo (`/api/health` com `ok: true`).
+
+## 14. Lições aprendidas (erros reais deste projeto)
+
+Toda falha que escapar e chegar ao responsável vira uma entrada aqui: o que aconteceu, por que passou, e a regra. Não apagar entradas.
+
+| # | Data | O que aconteceu | Por que passou despercebido | Regra |
+|---|---|---|---|---|
+| L-01 | 2026-10-11 | Construí telas, painel e catálogo antes de provar a peça central: a IA real classificando documentos reais (PDF, foto, XML). Ela ainda não foi testada | Comecei pelo que dava para fazer sem credencial, e isso parecia progresso | Parte mais arriscada primeiro (§13) |
+| L-02 | 2026-10-11 | Teste de orçamento simultâneo (BIL-02) passava sem testar nada: o orçamento nunca se esgotava | Só conferia a ausência de estouro, não a presença do bloqueio | Todo teste de "X não acontece" também confere que o cenário foi montado e que "Y acontece" |
+| L-03 | 2026-10-11 | Teste de webhook (BIL-08) falhava 1 vez em 16 | A adulteração da assinatura às vezes não alterava nada | Falha intermitente é sinal: investigar, nunca rodar de novo até passar |
+| L-04 | 2026-10-11 | O papel da aplicação conseguia alterar preço e status da assinatura direto no banco | O código nunca fazia isso, então ninguém testou o ataque | Escrever o teste do ataque, não só do caminho feliz |
+| L-05 | 2026-10-12 | Credenciais fictícias escritas no código foram acusadas pelo gitleaks na CI | O verificador local é mais simples que o gitleaks | Nenhuma credencial fixa no código, nem fictícia: gerar em tempo de execução |
+| L-06 | 2026-10-12/13 | Edições automáticas por shell corromperam `$$` e `\1` (três vezes) | Substituições de texto interpretam `$` e `\` | Usar edição direta (Edit/Write) em trechos com `$`, `\` ou crases; rodar os testes depois de editar o esquema |
+| L-07 | 2026-10-13 | Funcionava no computador e falhava na Vercel: o esquema era lido do disco e não ia no deploy | Testes e navegador rodaram só localmente | Validar na prévia da Vercel; não depender de arquivos lidos do disco em produção |
+| L-08 | 2026-10-13 | Na prévia, as variáveis criadas à mão não chegavam (`stage: config`) | O `/api/health` escondia o motivo, e o responsável não tinha como saber qual variável faltava | Diagnóstico seguro: dizer a etapa e o nome da variável, nunca o valor |

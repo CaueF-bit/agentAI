@@ -13,7 +13,7 @@ Resumo do que nunca pode ser ignorado:
 
 ## Como trabalhar neste código
 
-- **Comece por** [`docs/progress.md`](docs/progress.md) (estado e próximo passo) e [`README.md`](README.md) (como rodar).
+- **Comece por** [`docs/progress.md`](docs/progress.md) (estado e próximo passo) e [`README.md`](README.md) (como rodar). Leia também as **lições aprendidas** no fim do `CLAUDE.md` (§14).
 - **Domínio** em `src/core` (sem Next). Toda leitura ou escrita de dados de cliente usa `db.asTenant(...)`, que aplica RLS com o papel `app_user`. `db.asSystem(...)` é só para autenticação, catálogo público, webhooks e operador.
 - **Identidade** sempre por `requireActor` (sessão). Nunca aceitar org, papel, preço ou limite vindo de formulário.
 - **Nova ferramenta de agente:** registrar em `src/core/agents/tools.ts`, cobrir no motor (`callTool`) e adicionar testes de permissão e de limite.

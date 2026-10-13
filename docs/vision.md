@@ -39,6 +39,18 @@ Uma mesma organização pode ser criadora e compradora.
 4. **Isolamento por cliente** como requisito central: dados, credenciais e histórico.
 5. **Previsibilidade de custo.** Limites de gasto que resistem a execuções simultâneas.
 
+## O que o app nunca pode fazer
+
+Critério para decidir rápido quando uma ideia parece boa mas descaracteriza o produto. Mudar esta lista exige registro em [decisions.md](decisions.md).
+
+1. **Nunca fazer o trabalho do contador.** O agente cobra, recebe e organiza. Não transmite obrigações, não emite guias, não altera a escrituração, não dá orientação tributária.
+2. **Nunca falar com o cliente do escritório em nome da plataforma.** Toda mensagem sai com a identidade do escritório e, por padrão, só depois de aprovada por alguém de lá.
+3. **Nunca exigir que o escritório troque o sistema que já usa.** Funciona ao lado do ERP e do portal atuais; não vira um ERP contábil.
+4. **Nunca cobrar de surpresa.** Passou do limite, bloqueia e avisa; não fatura excedente sozinho.
+5. **Nunca usar os dados de um escritório para outro**, nem para melhorar agentes de terceiros, sem autorização expressa.
+6. **Nunca prometer economia ou resultado** que o próprio escritório não consiga ver medido no painel.
+7. **Nunca publicar no catálogo um agente sem versão testada** e sem limites declarados.
+
 ## Horizonte
 
 | Fase | Conteúdo |

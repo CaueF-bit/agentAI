@@ -47,6 +47,20 @@ Tudo neste documento é **hipótese a validar** em entrevistas ([customer-interv
 - Isolamento de dados por escritório e por instalação.
 - Painel de resultado.
 
+### Por que um escritório cancelaria (hipóteses)
+
+Tão importante quanto o motivo de entrada. Cada item tem a defesa que o produto precisa ter; ideia que piora algum destes pontos deve ser recusada, mesmo que pareça melhoria.
+
+| Motivo provável de saída | O que o produto precisa garantir |
+|---|---|
+| Os clientes do escritório reclamam das mensagens (tom robótico, insistência) e o sócio fica constrangido | Tom configurável, limite de lembretes, aprovação humana ligada por padrão |
+| O agente erra a classificação e a equipe volta a conferir tudo à mão: não economiza tempo | Medir o erro no piloto; mostrar a confiança; correção em um clique (**pendente**) |
+| A implantação demora ou exige configuração demais | Lista de documentos pronta por regime; importação de clientes (**pendente**) |
+| A equipe não adota "mais uma ferramenta" e volta ao WhatsApp manual | Painel simples, poucos cliques por competência |
+| O custo fica imprevisível ou o retorno não aparece | Limite de gasto; resultado cliente a cliente no painel |
+| Medo de sigilo ou LGPD depois de uma pergunta de cliente | Isolamento, trilha de auditoria, termos claros (análise jurídica **pendente**) |
+| O ERP ou portal atual lança algo "bom o suficiente" incluído no plano | Foco no resultado medido do fechamento, não em recurso isolado |
+
 ### Quem NÃO atender no início
 
 - Profissionais individuais com menos de 30 clientes: baixo potencial de retorno e muito suporte por real faturado.
