@@ -15,9 +15,10 @@ Todos os testes usam banco em memória novo e dados fictícios. A IA é o proved
 | Dados, integrações, entradas maliciosas | 7 | 8 | 8 | 0 | 0 | `tests/data-security-secrets.test.ts` |
 | Jornadas completas | 5 | 5 | 5 | 0 | 0 | `tests/journeys.test.ts` |
 | Adaptador Postgres (protocolo real) | — | 2 | 2 | 0 | 0 | `tests/pg-adapter.test.ts` |
-| **Total** | **50 (piso)** | **70** | **70** | **0** | **0** | |
+| Validação de configuração | — | 1 | 1 | 0 | 0 | `tests/config.test.ts` |
+| **Total** | **50 (piso)** | **71** | **71** | **0** | **0** | |
 
-**Última execução completa (2026-10-12):** 70/70 aprovados, depois da correção do teste intermitente BIL-08 ([decisions.md](decisions.md)).
+**Última execução completa (2026-10-13):** 71/71 aprovados, depois da correção do teste intermitente BIL-08 ([decisions.md](decisions.md)).
 
 **Tipos de teste:**
 - unitários: validação de especificação, redação de segredos, cifra, modelo financeiro;

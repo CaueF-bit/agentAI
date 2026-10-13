@@ -2,6 +2,7 @@ import { getConfig } from "@/core/config";
 import { logger } from "@/core/security/redact";
 import { getDb } from "@/lib/server/context";
 import { DbInitError } from "@/db/client";
+import { ConfigError } from "@/core/config";
 
 // Verificação rápida pós-publicação: banco responde e modo de operação.
 // A resposta não expõe detalhes; o motivo de falha vai só para o log (redigido).
@@ -17,6 +18,9 @@ export async function GET() {
     // Só um indicativo booleano, sem valores: ajuda a diagnosticar variável ausente.
     const stage = e instanceof DbInitError ? e.stage : "query";
     const sqlState = e instanceof DbInitError ? e.sqlState : null;
-    return Response.json({ ok: false, databaseUrlConfigured: hasDatabaseUrl, stage, sqlState }, { status: 503 });
+    // Problema de configuração: diz QUAL variável e o tipo do problema, nunca o valor.
+    const cause = e instanceof DbInitError ? e.cause : e;
+    const configIssue = cause instanceof ConfigError ? cause.issue : undefined;
+    return Response.json({ ok: false, databaseUrlConfigured: hasDatabaseUrl, stage, sqlState, configIssue }, { status: 503 });
   }
 }
