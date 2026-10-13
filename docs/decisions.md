@@ -64,6 +64,13 @@ Formato: data, decisão, motivo, alternativas. Inclui toda correção de expecta
 - **Decisão:** gerar esses valores aleatoriamente em tempo de execução (`randomToken()`) em vez de silenciar o verificador.
 - **Pendência:** o commit `6f21994` continua no histórico com esses valores fictícios. Uma varredura completa do histórico pode voltar a apontá-los; nesse caso, registrar as ocorrências em `.gitleaksignore` com justificativa, sem reescrever o histórico.
 
+## D-013 · 2026-10-12 · Postgres gerenciado via `pg` + só prévias protegidas na Vercel
+
+- **Banco:** com `DATABASE_URL` (ou `POSTGRES_URL`) o app usa Postgres gerenciado (ex.: Neon pelo Marketplace da Vercel) pelo driver `pg`; sem ela, o PGlite local. Na Vercel sem banco configurado, o app recusa iniciar.
+- **Esquema portátil:** retirado `FORCE ROW LEVEL SECURITY` (o dono do esquema é o papel de sistema e precisa ignorar o RLS mesmo sem ser superusuário); o papel `app_user` é criado de forma idempotente e concedido ao papel de conexão (`SET ROLE`). O `app_user` continua sujeito ao RLS.
+- **Publicação:** `vercel.json` desliga o deploy automático da `main`. Só prévias de outras branches, protegidas por Vercel Authentication. Produção continua bloqueada (CLAUDE.md §10).
+- **Testes:** PG-01 e PG-02 exercitam o adaptador pelo protocolo de rede do Postgres (servidor de teste local). A concorrência com várias conexões continua pendente (R-07).
+
 ## Correções de expectativa de teste
 
 | Data | Teste | Mudança | Por quê |

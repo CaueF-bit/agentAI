@@ -35,9 +35,9 @@ Aplica os bloqueios do `CLAUDE.md` §10 e §11 ao estado real do projeto em **20
 
 | Proteção | Estado |
 |---|---|
-| CI com lockfile, lint, tipos, testes, build, segredos e dependências | 🟡 Workflow escrito em `.github/workflows/ci.yml`; **nunca rodou no GitHub** até ser enviado |
+| CI com lockfile, lint, tipos, testes, build, segredos e dependências | ✅ Rodando no GitHub; aprovada no commit `e7243b9` (execução 38324367854) |
 | Branch `main` protegida exigindo os checks | ❌ Não configurada. Exige admin do repositório (Settings → Branches) |
-| Vercel: produção só a partir de commit aprovado | ❌ Projeto Vercel não criado nem vinculado. A CLI da Vercel não está instalada |
+| Vercel: produção só a partir de commit aprovado | 🟡 `vercel.json` desliga deploy automático da `main` (só prévias). Projeto Vercel ainda não criado |
 | Prévias protegidas (Vercel Authentication) | ❌ Depende do projeto Vercel |
 | Bloqueio de deploy por CLI e de promoção de prévia sem checks | ❌ Depende do projeto Vercel e de política da equipe |
 

@@ -286,7 +286,15 @@ create table platform_settings (
 -- ---------------------------------------------------------------------------
 -- Papel da aplicação e políticas (RLS)
 -- ---------------------------------------------------------------------------
-create role app_user nologin;
+-- O dono do esquema (papel de sistema) ignora o RLS por ser dono das tabelas; app_user nunca.
+-- Idempotente: no Postgres gerenciado o papel é do cluster e pode já existir.
+do $$ begin
+  if not exists (select 1 from pg_roles where rolname = 'app_user') then
+    create role app_user nologin;
+  end if;
+end $$;
+-- O papel de conexão precisa poder assumir app_user (SET ROLE) a cada transação de cliente.
+grant app_user to current_user;
 grant usage on schema public to app_user;
 
 -- Tabelas de cliente: leitura e escrita só na própria organização.
@@ -298,7 +306,6 @@ begin
     'documents', 'runs', 'run_steps', 'approvals', 'outbound_messages', 'budget_periods', 'usage_events'
   ] loop
     execute format('alter table %I enable row level security', t);
-    execute format('alter table %I force row level security', t);
     execute format(
       'create policy tenant_isolation on %I using (org_id = current_setting(''app.org_id'', true)) with check (org_id = current_setting(''app.org_id'', true))',
       t);
@@ -335,7 +342,6 @@ create trigger budget_periods_limit before insert or update of limit_cents on bu
 
 -- Versões: a própria organização vê e cria; qualquer organização lê versões ligadas a anúncio listado.
 alter table agent_versions enable row level security;
-alter table agent_versions force row level security;
 create policy versions_own on agent_versions
   using (org_id = current_setting('app.org_id', true))
   with check (org_id = current_setting('app.org_id', true));
@@ -348,7 +354,6 @@ grant select, insert on agent_versions to app_user;
 
 -- Anúncios: todos leem os listados; só a organização dona cria/atualiza.
 alter table catalog_listings enable row level security;
-alter table catalog_listings force row level security;
 create policy listings_read on catalog_listings for select
   using (status = 'listed' or org_id = current_setting('app.org_id', true)
          or exists (select 1 from installations i where i.listing_id = catalog_listings.id));
@@ -364,7 +369,6 @@ grant select on plans to app_user;
 
 -- Auditoria: a organização só insere e lê os próprios registros.
 alter table audit_log enable row level security;
-alter table audit_log force row level security;
 create policy audit_own on audit_log
   using (org_id = current_setting('app.org_id', true))
   with check (org_id = current_setting('app.org_id', true));

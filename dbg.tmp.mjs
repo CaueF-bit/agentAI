@@ -1,0 +1,17 @@
+import { PGlite } from "@electric-sql/pglite";
+import { PGLiteSocketServer } from "@electric-sql/pglite-socket";
+import pg from "pg";
+import { readFileSync } from "node:fs";
+const db = new PGlite(); await db.waitReady;
+const server = new PGLiteSocketServer({ db, port: 56789, host: "127.0.0.1" }); await server.start();
+const pool = new pg.Pool({ connectionString: "postgresql://postgres@127.0.0.1:56789/postgres", max: 1 });
+const step = async (n, f) => { try { await f(); console.log("ok", n); } catch (e) { console.log("FAIL", n, e.message); } };
+let c = await pool.connect();
+await step("select", () => c.query("select 1"));
+await step("lock", () => c.query("select pg_advisory_lock(1)"));
+await step("schema", () => c.query(readFileSync("src/db/schema.sql", "utf8")));
+await step("unlock", () => c.query("select pg_advisory_unlock(1)"));
+c.release();
+await step("reuse", async () => { const c2 = await pool.connect(); await c2.query("select count(*) from organizations"); c2.release(); });
+await step("param", async () => { const c2 = await pool.connect(); await c2.query("select $1::text", ["x"]); c2.release(); });
+await pool.end(); await server.stop(); await db.close();

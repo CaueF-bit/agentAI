@@ -15,7 +15,7 @@ Estado real dos controles e das hipóteses. Um controle só aparece como "ativo"
 | Cifra de credenciais com chave fora do banco | §4 | ativo | SEC-01, SEC-02 |
 | Limites, orçamento, aprovação, pausa | §6 | ativo | RUN-*, BIL-* |
 | Avaliação real da IA | §7 | **pendente** | [evaluations.md](technical/evaluations.md) |
-| CI (lockfile, lint, tipos, testes, build, segredos, dependências) | §9 | escrito, **nunca executado no GitHub** | `.github/workflows/ci.yml` |
+| CI (lockfile, lint, tipos, testes, build, segredos, dependências) | §9 | ativo no GitHub (não bloqueia merge enquanto a branch não estiver protegida) | execução 38324367854 aprovada |
 | Produção bloqueada até os checks passarem | §9 | **não ativo** | exige proteção de branch + projeto Vercel |
 | Prévias protegidas | §9 | **não ativo** | projeto Vercel inexistente |
 | Monitoramento, backups e restauração testada | §11 | **pendente** | [launch-requirements.md](operations/launch-requirements.md) |

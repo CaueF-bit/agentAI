@@ -23,7 +23,7 @@ navegador ──► Next.js (App Router, Server Components + Server Actions)   s
 |---|---|---|---|
 | Frontend + backend | Next.js 16 (App Router), React 19, Tailwind 4 | Um só deploy na Vercel; Server Actions já verificam a origem das requisições | Igual |
 | Domínio | `src/core`, TypeScript puro | Testável sem servidor HTTP; troca de framework não afeta regras | Igual |
-| Banco | PGlite 0.5 (Postgres em WASM, embutido) | Roda sem serviço externo e com RLS real, que dá para testar com o papel da aplicação | Postgres gerenciado com TLS e criptografia em repouso (ex.: Neon ou Supabase via Marketplace da Vercel). Exige adaptador `pg` implementando a mesma interface `Db` (**pendente**) |
+| Banco | PGlite 0.5 (Postgres em WASM, embutido) | Roda sem serviço externo e com RLS real, que dá para testar com o papel da aplicação | Postgres gerenciado com TLS e criptografia em repouso (ex.: Neon via Marketplace da Vercel). Adaptador `pg` **implementado** (`createPgDb`), testado pelo protocolo de rede em servidor local (PG-01/02); ainda não executado contra um banco gerenciado |
 | Autenticação | Login de **demonstração** com sessão opaca (hash SHA-256 no banco) | Permite testar papéis sem senha | Provedor consolidado (Clerk, Auth.js ou Supabase Auth), D-006 (**pendente**) |
 | Validação | Zod 4 | Esquema estrito para tudo que vem da IA ou do navegador | Igual |
 | IA | Interface `ModelProvider`; padrão simulado; adaptador Anthropic opcional | Funciona sem credenciais; o fornecedor é trocável | Anthropic com credencial autorizada + avaliações reais ([evaluations.md](evaluations.md)) |

@@ -1,7 +1,7 @@
 import "server-only";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { createDb, type Db } from "@/db/client";
+import { createDb, createPgDb, type Db } from "@/db/client";
 import { seedDemoIfEmpty } from "@/db/seed";
 import { getConfig } from "@/core/config";
 import type { Actor } from "@/core/auth/actor";
@@ -19,7 +19,10 @@ const g = globalThis as unknown as { __agentaiDb?: Promise<Db>; __agentaiChannel
 export function getDb(): Promise<Db> {
   if (!g.__agentaiDb) {
     g.__agentaiDb = (async () => {
-      const db = await createDb(process.env.PGLITE_DATA_DIR || ".data/pglite");
+      // Postgres gerenciado quando configurado (ex.: Neon pelo Marketplace da Vercel); senão, PGlite local.
+      const url = process.env.DATABASE_URL || process.env.POSTGRES_URL;
+      if (!url && process.env.VERCEL) throw new Error("DATABASE_URL ausente: na Vercel o banco local não persiste.");
+      const db = url ? await createPgDb(url) : await createDb(process.env.PGLITE_DATA_DIR || ".data/pglite");
       if (getConfig().demoMode) await seedDemoIfEmpty(db);
       return db;
     })();
