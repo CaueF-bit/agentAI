@@ -95,6 +95,30 @@ class PgDb implements Db {
   }
 }
 
+/**
+ * Falha de inicialização com a ETAPA em que ocorreu e o código SQLSTATE do Postgres (ex.: 42501).
+ * Nenhum dos dois contém dados sensíveis; servem para diagnóstico no /api/health.
+ */
+export class DbInitError extends Error {
+  constructor(
+    readonly stage: "config" | "connect" | "schema" | "seed",
+    readonly sqlState: string | null,
+    cause: unknown,
+  ) {
+    super(`db init failed at ${stage}`, { cause });
+  }
+}
+
+export async function initStage<T>(stage: DbInitError["stage"], fn: () => Promise<T> | T): Promise<T> {
+  try {
+    return await fn();
+  } catch (e) {
+    if (e instanceof DbInitError) throw e;
+    const code = (e as { code?: unknown }).code;
+    throw new DbInitError(stage, typeof code === "string" && /^[0-9A-Z]{5}$/.test(code) ? code : null, e);
+  }
+}
+
 /** Banco embutido (PGlite). Sem dataDir = em memória (testes). */
 export async function createDb(dataDir?: string): Promise<Db> {
   if (dataDir) mkdirSync(dataDir, { recursive: true });
@@ -111,11 +135,13 @@ export async function createDb(dataDir?: string): Promise<Db> {
  */
 export async function createPgDb(connectionString: string, opts: { max?: number } = {}): Promise<Db> {
   const pool = new Pool({ connectionString, max: opts.max ?? 5, idleTimeoutMillis: 30_000, connectionTimeoutMillis: 10_000 });
-  const client = await pool.connect();
+  const client = await initStage("connect", () => pool.connect());
   try {
-    await client.query("select pg_advisory_lock(727001)");
-    const exists = await client.query<{ t: string | null }>("select to_regclass('public.organizations')::text as t");
-    if (!exists.rows[0]?.t) await client.query(SCHEMA_SQL);
+    await initStage("schema", async () => {
+      await client.query("select pg_advisory_lock(727001)");
+      const exists = await client.query<{ t: string | null }>("select to_regclass('public.organizations')::text as t");
+      if (!exists.rows[0]?.t) await client.query(SCHEMA_SQL);
+    });
   } finally {
     await client.query("select pg_advisory_unlock(727001)").catch(() => {});
     client.release();

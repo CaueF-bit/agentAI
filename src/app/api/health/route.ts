@@ -1,6 +1,7 @@
 import { getConfig } from "@/core/config";
 import { logger } from "@/core/security/redact";
 import { getDb } from "@/lib/server/context";
+import { DbInitError } from "@/db/client";
 
 // Verificação rápida pós-publicação: banco responde e modo de operação.
 // A resposta não expõe detalhes; o motivo de falha vai só para o log (redigido).
@@ -14,6 +15,8 @@ export async function GET() {
   } catch (e) {
     logger.error("health check failed", e);
     // Só um indicativo booleano, sem valores: ajuda a diagnosticar variável ausente.
-    return Response.json({ ok: false, databaseUrlConfigured: hasDatabaseUrl }, { status: 503 });
+    const stage = e instanceof DbInitError ? e.stage : "query";
+    const sqlState = e instanceof DbInitError ? e.sqlState : null;
+    return Response.json({ ok: false, databaseUrlConfigured: hasDatabaseUrl, stage, sqlState }, { status: 503 });
   }
 }

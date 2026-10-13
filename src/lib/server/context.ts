@@ -1,7 +1,7 @@
 import "server-only";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { createDb, createPgDb, type Db } from "@/db/client";
+import { createDb, createPgDb, initStage, type Db } from "@/db/client";
 import { seedDemoIfEmpty } from "@/db/seed";
 import { getConfig } from "@/core/config";
 import type { Actor } from "@/core/auth/actor";
@@ -22,8 +22,9 @@ export function getDb(): Promise<Db> {
       // Postgres gerenciado quando configurado (ex.: Neon pelo Marketplace da Vercel); senão, PGlite local.
       const url = process.env.DATABASE_URL || process.env.POSTGRES_URL;
       if (!url && process.env.VERCEL) throw new Error("DATABASE_URL ausente: na Vercel o banco local não persiste.");
+      const cfg = await initStage("config", () => getConfig());
       const db = url ? await createPgDb(url) : await createDb(process.env.PGLITE_DATA_DIR || ".data/pglite");
-      if (getConfig().demoMode) await seedDemoIfEmpty(db);
+      if (cfg.demoMode) await initStage("seed", () => seedDemoIfEmpty(db));
       return db;
     })();
     // Falha na inicialização não fica em cache: a próxima requisição tenta de novo.
