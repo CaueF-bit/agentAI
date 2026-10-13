@@ -1,6 +1,6 @@
 # Modelo de dados
 
-Fonte da verdade: [`src/db/schema.sql`](../../src/db/schema.sql). Este documento explica as decisões; não repete colunas.
+Fonte da verdade: [`src/db/schema.ts`](../../src/db/schema.ts). Este documento explica as decisões; não repete colunas.
 
 ## Tabelas por domínio
 
@@ -49,4 +49,4 @@ Fonte da verdade: [`src/db/schema.sql`](../../src/db/schema.sql). Este documento
 
 ## Migrações
 
-O MVP aplica `schema.sql` inteiro em banco vazio. Antes de produção, isso precisa virar migrações versionadas, reversíveis quando possível, com plano de recuperação para as destrutivas ([runbook.md](../operations/runbook.md)).
+O MVP aplica `schema.ts` inteiro em banco vazio. Antes de produção, isso precisa virar migrações versionadas, reversíveis quando possível, com plano de recuperação para as destrutivas ([runbook.md](../operations/runbook.md)).

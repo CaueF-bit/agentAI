@@ -9,7 +9,7 @@ const step = async (n, f) => { try { await f(); console.log("ok", n); } catch (e
 let c = await pool.connect();
 await step("select", () => c.query("select 1"));
 await step("lock", () => c.query("select pg_advisory_lock(1)"));
-await step("schema", () => c.query(readFileSync("src/db/schema.sql", "utf8")));
+await step("schema", () => c.query(readFileSync("src/db/schema.ts", "utf8")));
 await step("unlock", () => c.query("select pg_advisory_unlock(1)"));
 c.release();
 await step("reuse", async () => { const c2 = await pool.connect(); await c2.query("select count(*) from organizations"); c2.release(); });

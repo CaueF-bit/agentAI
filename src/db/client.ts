@@ -1,7 +1,7 @@
 import { PGlite } from "@electric-sql/pglite";
-import { mkdirSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { mkdirSync } from "node:fs";
 import { Pool } from "pg";
+import { SCHEMA_SQL } from "./schema";
 
 export type Row = Record<string, unknown>;
 
@@ -31,10 +31,6 @@ export interface Db {
 }
 
 const TENANT_SETUP = "select set_config('app.org_id', $1, true), set_config('app.user_id', $2, true)";
-
-function schemaSql(): string {
-  return readFileSync(join(process.cwd(), "src", "db", "schema.sql"), "utf8");
-}
 
 class PgliteDb implements Db {
   constructor(private readonly pg: PGlite) {}
@@ -105,7 +101,7 @@ export async function createDb(dataDir?: string): Promise<Db> {
   const pg = dataDir ? new PGlite(dataDir) : new PGlite();
   await pg.waitReady;
   const exists = await pg.query<{ t: string | null }>("select to_regclass('public.organizations')::text as t");
-  if (!exists.rows[0]?.t) await pg.exec(schemaSql());
+  if (!exists.rows[0]?.t) await pg.exec(SCHEMA_SQL);
   return new PgliteDb(pg);
 }
 
@@ -119,7 +115,7 @@ export async function createPgDb(connectionString: string, opts: { max?: number 
   try {
     await client.query("select pg_advisory_lock(727001)");
     const exists = await client.query<{ t: string | null }>("select to_regclass('public.organizations')::text as t");
-    if (!exists.rows[0]?.t) await client.query(schemaSql());
+    if (!exists.rows[0]?.t) await client.query(SCHEMA_SQL);
   } finally {
     await client.query("select pg_advisory_unlock(727001)").catch(() => {});
     client.release();

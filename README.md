@@ -89,7 +89,7 @@ src/app/          páginas Next.js (App Router), ações de servidor, rotas /api
 src/components/   componentes de interface (editor de especificação, construtor, sandbox)
 src/core/         domínio, sem dependência do Next: auth, agents, ai, approvals, billing,
                   budget, catalog, clients, installations, orgs, runtime, security, system
-src/db/           schema.sql (RLS, gatilhos), cliente do banco, dados fictícios
+src/db/           schema.ts (RLS, gatilhos), cliente do banco, dados fictícios
 tests/            68 cenários (Vitest) — ver docs/test-matrix.md
 finance/          premissas editáveis + calculadora reproduzível
 scripts/          verificação de segredos

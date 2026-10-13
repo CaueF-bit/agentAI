@@ -1,3 +1,6 @@
+// Esquema do banco (SQL). Embutido no código para ir junto em qualquer deploy, sem ler arquivo do disco.
+// Executado uma vez em banco vazio por src/db/client.ts.
+export const SCHEMA_SQL = String.raw`
 -- Esquema do MVP. Executado por src/db/migrate.ts (idempotente: só cria se não existir).
 -- Isolamento: toda tabela de cliente tem org_id e RLS. A aplicação executa consultas de
 -- cliente com o papel app_user (sem BYPASSRLS) e app.org_id definido por transação.
@@ -384,3 +387,4 @@ grant execute on function platform_kill_switch() to app_user;
 
 -- organizations, users, memberships, sessions, billing_events e platform_settings:
 -- sem permissão para app_user (acessadas só pelo código de sistema, em src/core/system).
+`;
