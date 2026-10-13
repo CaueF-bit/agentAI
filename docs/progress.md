@@ -34,6 +34,7 @@ Registro para continuar o trabalho entre sessões. Atualizar ao fim de cada etap
 - Deploy automático da `main` desligado (`vercel.json`); prévias publicadas a partir da branch `preview`.
 - Verificado: a URL do deploy redireciona para o login da Vercel (Vercel Authentication ativa).
 - O deploy de produção criado na importação não tem banco configurado e não deve ser usado.
+- **Fase 0b concluída (2026-10-13):** prévia `eba80be` com `/api/health` `ok: true` (Neon) e roteiro Bruno executa → Ana aprova testado pelo responsável. Variáveis na Preview: `DEMO_MODE`, `DATABASE_URL` (Neon) e `ANTHROPIC_API_KEY` (guardada, sem uso enquanto `AI_PROVIDER` não for `anthropic`).
 
 ## Bloqueios (exigem decisão ou autorização do responsável)
 
@@ -50,6 +51,5 @@ Registro para continuar o trabalho entre sessões. Atualizar ao fim de cada etap
 
 ## Próximo passo exato
 
-1. **Fase 0b:** o responsável cria a variável `DEMO_MODE=true` no ambiente Preview da Vercel; disparar novo deploy; conferir `/api/health` com `ok: true` e o roteiro Bruno → Ana na prévia.
-2. **Fase 1 (IA real):** quando o responsável colocar a chave da Anthropic, montar ~30 documentos fictícios realistas (PDF, foto, XML, texto e alguns maliciosos), rodar a classificação com o Claude real e registrar acerto e custo em `docs/test-matrix.md` (avaliações).
-3. **Fase 1b:** entrevistas de descoberta ([customer-interviews.md](validation/customer-interviews.md)), em paralelo.
+1. **Fase 1 (IA real):** quando o responsável colocar a chave da Anthropic, montar ~30 documentos fictícios realistas (PDF, foto, XML, texto e alguns maliciosos), rodar a classificação com o Claude real e registrar acerto e custo em `docs/test-matrix.md` (avaliações).
+2. **Fase 1b:** entrevistas de descoberta ([customer-interviews.md](validation/customer-interviews.md)), em paralelo.
