@@ -28,6 +28,13 @@ Registro para continuar o trabalho entre sessões. Atualizar ao fim de cada etap
 - `npm audit --omit=dev --audit-level=high`: 0 vulnerabilidades.
 - Navegador (dev local): login de demonstração, execução (19 passos, 2 aprovações pedidas, documento malicioso classificado como "outro"), aprovação com envio único, construtor → rascunho → sandbox. Nenhum erro nos logs do servidor.
 
+## Vercel (2026-10-13)
+
+- Projeto criado pelo responsável e importado de `CaueF-bit/agentAI`; Neon conectado ao ambiente Preview; variáveis definidas só em Preview.
+- Deploy automático da `main` desligado (`vercel.json`); prévias publicadas a partir da branch `preview`.
+- Verificado: a URL do deploy redireciona para o login da Vercel (Vercel Authentication ativa).
+- O deploy de produção criado na importação não tem banco configurado e não deve ser usado.
+
 ## Bloqueios (exigem decisão ou autorização do responsável)
 
 - Commit e push deste trabalho para o GitHub: **aguardando autorização**.
