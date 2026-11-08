@@ -51,5 +51,9 @@ Registro para continuar o trabalho entre sessões. Atualizar ao fim de cada etap
 
 ## Próximo passo exato
 
-1. **Fase 1 (IA real):** quando o responsável colocar a chave da Anthropic, montar ~30 documentos fictícios realistas (PDF, foto, XML, texto e alguns maliciosos), rodar a classificação com o Claude real e registrar acerto e custo em `docs/test-matrix.md` (avaliações).
-2. **Fase 1b:** entrevistas de descoberta ([customer-interviews.md](validation/customer-interviews.md)), em paralelo.
+**Fase 1 (IA real) — parte técnica concluída em 2026-11-08:** 30/30 corretos, 4/4 documentos maliciosos resistidos, US$ 0,26 no total (~US$ 0,009 por documento). Chave da Anthropic em `.env.development.local` (fora do Git). Relatório em `evals/results/`.
+
+Próximas opções (o responsável escolhe):
+1. **Fase 1b:** entrevistas de descoberta ([customer-interviews.md](validation/customer-interviews.md)) — prova do lado do negócio, ainda não feita.
+2. **Fase 2:** o app aceitar PDF, foto e XML de verdade (hoje só texto), usando o adaptador já validado.
+3. **Reforço da prova técnica:** testar com fotos reais de celular (anonimizadas) antes do piloto.

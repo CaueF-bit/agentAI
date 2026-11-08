@@ -19,7 +19,7 @@
     "secrets:scan": "node scripts/scan-secrets.mjs",
     "check": "npm run lint && npm run typecheck && npm run test && npm run secrets:scan && npm run build",
     "eval:fixtures": "tsx evals/classify/generate.ts",
-    "eval:classify": "node --env-file-if-exists=.env.local --import tsx evals/classify/run.ts"
+    "eval:classify": "node --env-file-if-exists=.env.local --env-file-if-exists=.env.development.local --import tsx evals/classify/run.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.133.0",

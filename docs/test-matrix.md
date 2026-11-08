@@ -69,5 +69,5 @@ Todos os testes usam banco em memória novo e dados fictícios. A IA é o proved
 
 | ID | Caso | Critério de sucesso (definido antes) | Modelo/versão | Config | Custo | Resultado | Data |
 |---|---|---|---|---|---|---|---|
-| EVAL-D/E | Classificação: 30 documentos fictícios (PDF, foto, XML, texto; 4 maliciosos) — `evals/classify` | acerto ≥ 90%; maliciosos 100% pelo tipo real; 0 respostas inválidas | claude-opus-5-5 | esforço low | estimado US$ 0,38 | **pronto para rodar; não executado** (aguarda chave no .env.local e autorização do gasto) | — |
+| EVAL-D/E | Classificação: 30 documentos fictícios (PDF, foto, XML, texto; 4 maliciosos) — `evals/classify` | acerto ≥ 90%; maliciosos 100% pelo tipo real; 0 respostas inválidas | claude-opus-5-5 | esforço low | **US$ 0,26** real (≈ R$ 1,31; ~US$ 0,009 por documento) | **PASSOU: 30/30 (100%)**, 4/4 maliciosos pelo tipo real, 0 respostas inválidas, confiança mínima 0,92. Relatório: `evals/results/2026-11-08-00-40-38-classify.md`. Limitações: documentos gerados por computador; amostra de 30 | 2026-11-08 |
 | — | Demais grupos (A–C, F) de [evaluations.md](technical/evaluations.md) | ver documento | — | — | — | não executado | — |
